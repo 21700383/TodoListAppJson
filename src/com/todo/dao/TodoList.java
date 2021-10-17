@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.todo.service.DbConnect;
 
 public class TodoList {
@@ -264,28 +266,30 @@ public class TodoList {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line;
 			String sql = "insert into list (title, category, desc, due_date, how_many, who, current_date, is_completed)"
-					+ " values (?,?,?,?,?,?);";
+					+ " values (?,?,?,?,?,?,?,?);";
 			int records = 0;
-			while((line = br.readLine()) != null) {
-				StringTokenizer st = new StringTokenizer(line, "##");
-				String title = st.nextToken();
-				String category = st.nextToken();
-				String desc = st.nextToken();
-				String how_many = st.nextToken();
-				String who = st.nextToken();
-				String due_date = st.nextToken();
-				String current_date = st.nextToken();
-				String is_completed = st.nextToken();
+			Gson gson = new Gson();
+			line = br.readLine();
+			List<TodoItem> list = gson.fromJson(line, new TypeToken<List<TodoItem>>(){}.getType());
+			for (TodoItem item : list) {
+				String title = item.getTitle();
+				String category = item.getCategory();
+				String desc = item.getDesc();
+				int how_many = item.getHow_many();
+				String who = item.getWho();
+				String due_date = item.getDue_date();
+				String current_date = item.getCurrent_date();
+				int is_completed = item.getIs_completed();
 			
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1,title);
 				pstmt.setString(2,category);
 				pstmt.setString(3,desc);
-				pstmt.setString(4,how_many);
+				pstmt.setInt(4,how_many);
 				pstmt.setString(5,who);
 				pstmt.setString(6,due_date);
 				pstmt.setString(7,current_date);
-				pstmt.setString(8,is_completed);
+				pstmt.setInt(8,is_completed);
 				int count = pstmt.executeUpdate();
 				if(count > 0) records++;
 				pstmt.close();
@@ -293,7 +297,7 @@ public class TodoList {
 			System.out.println(records + " records read !!");
 			br.close();
 		} catch (Exception e) {
-			System.out.println("No data at todolist.txt");
+			e.printStackTrace();
 		}	
 	}
 }

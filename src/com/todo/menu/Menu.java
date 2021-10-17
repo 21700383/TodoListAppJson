@@ -6,7 +6,7 @@ public class Menu {
     	System.out.println("<TodoList command menu>");
         System.out.println("1. add -> Add new item");
         System.out.println("2. del -> Delete an item");
-        System.out.println("3. del_many -> Delete an item (Ex. del_many 5)");
+        System.out.println("3. del_many -> Delete an item (Ex. del_many 2 4 60 1)");
         System.out.println("4. edit -> Update an item ");
         System.out.println("5. ls -> List all items");
         System.out.println("6. ls_name -> show list by ascending order of title");
@@ -18,7 +18,7 @@ public class Menu {
         System.out.println("12. find -> find an item containing this word from title or description");
         System.out.println("13. find_cate -> find an item containing this word from category");
         System.out.println("14. comp -> marks a task completed (Ex. comp 1)");
-        System.out.println("15. comp_many -> marks a task completed (Ex. comp_many 5)");
+        System.out.println("15. comp_many -> marks a task completed (Ex. comp_many 2 4 60 1)");
         System.out.println("16. exit -> exit program");
     }
     

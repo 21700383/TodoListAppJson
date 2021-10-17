@@ -11,7 +11,7 @@ public class TodoMain {
 	public static void start() {
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
-		if (l.getCount() == 0) 
+		if (l.getCount() == 0)
 			l.importData("todolist.txt"); // if db already has data, don't load data to db which will just be the same
 		boolean quit = false;
 		Menu.displaymenu();

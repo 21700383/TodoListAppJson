@@ -48,11 +48,7 @@ public class TodoUtil {
 		due_date = sc.next();
 		
 		is_completed = 0;
-		
 		TodoItem t = new TodoItem(title, category, desc, how_many, who, due_date, is_completed);
-		Gson gson = new Gson();
-		String jsonstr = gson.toJson(t);
-		System.out.println(jsonstr);
 		if(l.addItem(t) > 0) System.out.println("Item added");
 	}
 
@@ -95,9 +91,10 @@ public class TodoUtil {
 		System.out.print("Edit Item\n"
 				+ "Enter item number to edit: ");
 		int index = sc.nextInt();
+		sc.nextLine();
 		
 		System.out.print("New title: ");
-		new_title = sc.next().trim();
+		new_title = sc.nextLine().trim();
 		if (l.isDuplicate(new_title)) {
 			System.out.printf("Title can't be duplicate");
 			return;
@@ -206,18 +203,21 @@ public class TodoUtil {
 	
 	public static void saveList(TodoList l, String string) {
 		Gson gson = new Gson();
+		String jsonstr = "";
+		List<TodoItem> list = new ArrayList<TodoItem>();
 		try {
 			Writer w = new FileWriter(string);
 			for (TodoItem item : l.getList()) {
-//				String jsonstr = gson.toJson(item);
-//				System.out.println(jsonstr);
-//				w.write(jsonstr);
-				w.write(item.toSaveString());
+				list.add(item);
+//				w.write(item.toSaveString()); 
 			}
+			jsonstr = gson.toJson(list);
+			System.out.println(jsonstr);
+			w.write(jsonstr);
 			w.close();
 			
 			System.out.println("All data has been saved");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

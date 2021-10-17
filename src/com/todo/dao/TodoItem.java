@@ -4,15 +4,17 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class TodoItem {
-	private int id;
+	private Integer id;
     private String title;
     private String category;
 	private String desc;
-	private int how_many;
+	private Integer how_many;
 	private String who;
     private String due_date;
     private String current_date;
-    private int is_completed;
+    private Integer is_completed;
+    
+    public TodoItem() {};
 
     public TodoItem(String title, String category, String desc, int how_many, String who, String due_date, int is_completed){
         this.title = title;
